@@ -1,0 +1,47 @@
+/* default set up starts here*/
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+font-family: sprint;
+}
+/* default set up ends here*/
+/* font setup starts here*/
+@font-face {
+    font-family: sprint;
+    src: url(Oswald-VariableFont_wght.ttf);
+}
+/* font setup ends here*/
+/*variables set up*/
+:root {
+    --font-size-20: 20px;
+    --primary-color: rgb(16, 25, 81);
+    --secondary-color: rgb(1, 125, 182);
+    --white-color-20: rgb(247, 247, 247);
+    --white-color: white;
+    --font-width-900: 900;
+    --width-100: 100px;
+    --padding-100:100px;
+    --margin-100:100px;
+}
+/*varible ends*/
+
+/* Desktop views start here*/
+
+#mathsChoice, #gameDisplay, #result{
+display: none;
+}
+
+#homeError{
+color: red;
+font-style: italic;
+}
+#mathsChoice, #gameDisplay{
+flex-direction: column;
+}
+
+/* Desktop views ends here*/
+/* Mobile dislay here for responsiveness*/
+@media only screen and (max-width: 600px) {
+    
+}

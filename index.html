@@ -5,10 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <H1>hello sjsjhvh</H1>
-    <h3>ghvuhj bh</h3>
-    https://img.freepik.com/free-photo/top-view-copy-space-rubbers-rulers_23-2148416145.jpg?w=1380&t=st=1686231134~exp=1686231734~hmac=7607bb5c6a6b22e849addaf06c60408e6779576558cd618e492c62a2014ea15f
+    <main>
+        <section id="homePage"> 
+            <h1>this section is for the home screen by default display is visible</h1>
+            <input type="text" id="username">
+            <div id="homeError"></div>
+            <button id="enterGame">Play Game</button>
+        </section>
+        <section id="mathsChoice">
+            <h1>this section is where user make a maths choice to play from by default its hidden from css</h1>
+            <div class="userChoice">+</div>
+            <div class="userChoice">-</div>
+            <div class="userChoice">/</div>
+            <div class="userChoice">*</div>
+            <div class="userChoice">Mix</div>
+        </section>
+        <section id="gameDisplay">
+            <h1>this section is where user play game by aadefault its hidden from css</h1>
+            <div id="usernameDisplay">john</div>
+            <div id="userSelection">laolu</div>
+        
+        </section>
+        <section id="result">
+            <h1>this section is where user see result of game played by default its hidden from css</h1>
+        </section>
+    </main>
+    
+    <script src="index.js"></script>
 </body>
 </html>
