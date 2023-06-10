@@ -28,8 +28,12 @@ font-family: sprint;
 
 /* Desktop views start here*/
 
-#mathsChoice, #gameDisplay, #result{
+#mathsChoice, #gameDisplay, #result, #result{
 display: none;
+}
+
+#result{
+/* display: flex; */
 }
 
 #homeError{
