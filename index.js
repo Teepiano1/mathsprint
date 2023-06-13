@@ -76,8 +76,8 @@ function checkAns(userOpt) {
     //check
 
     //add result
-    let lhs = Math.floor(Math.random() * 20);
-    let rhs = Math.floor(Math.random() * 20);
+    let lhs = Math.floor(Math.random() * 20)+1;
+    let rhs = Math.floor(Math.random() * 20)+1;
 
     let dummyAns = Math.floor(Math.random() * 5);
     let randMixAns = randomQuest[Math.floor(Math.random() * 1)];
