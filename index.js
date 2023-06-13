@@ -50,6 +50,7 @@ userChoice.forEach(GameChoicediv=>{
 
         //display Game base on user selection
         document.getElementById('userSelection').innerHTML = userGameChoice;
+        checkAns("none");
      })
 })
 
@@ -84,7 +85,7 @@ function checkAns(userOpt) {
 
     //generate new question
     //remove question class list from other question
-    questionDiv.classList.remove("current");
+    
     gameDisplayBody.innerHTML += "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + userGameChoice + "</div><div class='rhs'>" + rhs + "</div><div class='equal'>=" + displayedAns +"</div></div>";
     //increase number of Questions ansed
     NumquestAns++;
