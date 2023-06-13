@@ -11,20 +11,42 @@
     <main>
         <section id="homePage"> 
             <h1>this section is for the home screen by default display is visible</h1>
-            <input type="text" id="username">
+            <input type="text" id="username" placeholder="Please Enter your Name">
             <div id="homeError"></div>
-            <button id="enterGame">Play Game</button>
+            <button id="enterGame" class="btn-primary">Play Game</button>
         </section>
         <section id="mathsChoice">
-            <h1>this section is where user make a maths choice to play from by default its hidden from css</h1>
-            <div class="userChoice">+</div>
-            <div class="userChoice">-</div>
-            <div class="userChoice">/</div>
-            <div class="userChoice">*</div>
-            <div class="userChoice">Mix</div>
+            <h1><span id="usernameDisplay"></span> <br> Choose Sprint Type</h1>
+            <div class="choice-group">
+                <div class="userChoice">+</div>
+                <div class="userChoice">-</div>
+                <div class="userChoice">/</div>
+                <div class="userChoice">*</div>
+                <div class="userChoice mix">Mix</div>
+            </div>
         </section>
         <section id="gameDisplay">
-            <h1>this section is where user play game by default its hidden from css</h1>        
+            <div class="result">
+                <h1>Time</h1> 
+                <h1>score</h1>
+                <br>
+                <div id="userSelection"></div>
+            </div>
+
+            <div id="game-display-body">
+                
+                <div id="question" class='current'>
+                    <div class="lhs">1</div>
+                    <div class="sign">*</div>
+                    <div class="rhs">2</div>
+                    <div class="equal">=2</div>
+                </div>
+
+            </div>
+            <div class="game-options">
+                <div id="true">True</div>
+                <div id="false">False</div>
+            </div>        
         </section>
         <section id="result">
             <h1>this section is where user see result of game played by default its hidden from css</h1>

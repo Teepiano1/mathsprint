@@ -4,7 +4,11 @@ const mathsChoice = document.getElementById("mathsChoice");
 const gameDisplay = document.getElementById("gameDisplay");
 const result = document.getElementById("result");
 const body=document.body;
+const gameDisplayBody = document.getElementById("game-display-body");
+const questionDiv = document.getElementById("question");
+let NumquestAns=1;
 
+const randomQuest = ['+', '-', '*', '/', 'mix',];
 //create global variables needed
 let username="";
 let userGameChoice="";
@@ -48,3 +52,41 @@ userChoice.forEach(GameChoicediv=>{
         document.getElementById('userSelection').innerHTML = userGameChoice;
      })
 })
+
+
+
+const trueBtn = document.getElementById('true');
+const falseBtn = document.getElementById('false');
+
+//add eventlistener to both button with checkAns function
+trueBtn.addEventListener('click', ()=>{
+    checkAns("true");
+});
+falseBtn.addEventListener('click', ()=>{
+    checkAns("false");
+
+});
+
+function checkAns(userOpt) {
+    const currentDiv = document.getElementsByClassName("current")[0];
+    if (currentDiv){
+        currentDiv.classList.remove("current");    
+    }
+    //check
+
+    //add result
+    let lhs = Math.floor(Math.random() * 20);
+    let rhs = Math.floor(Math.random() * 20);
+
+    let dummyAns = Math.floor(Math.random() * 5);
+    let randMixAns = randomQuest[Math.floor(Math.random() * 1)];
+    let displayedAns = eval(lhs + userGameChoice + rhs + randMixAns + dummyAns);
+
+    //generate new question
+    //remove question class list from other question
+    questionDiv.classList.remove("current");
+    gameDisplayBody.innerHTML += "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + userGameChoice + "</div><div class='rhs'>" + rhs + "</div><div class='equal'>=" + displayedAns +"</div></div>";
+    //increase number of Questions ansed
+    NumquestAns++;
+
+}
