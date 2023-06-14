@@ -121,6 +121,9 @@ justify-content: center;
 align-items: center;
 
 }
+.result{
+flex-direction: column;
+}
 #game-display-body{
 display: flex;
 height: 60%;

@@ -7,11 +7,13 @@ const body=document.body;
 const gameDisplayBody = document.getElementById("game-display-body");
 const questionDiv = document.getElementById("question");
 let NumquestAns=1;
+let correctAns=0;
 
-const randomQuest = ['+', '-', '*', '/', 'mix',];
+const randomQuest = ['+', '-', '*', '/'];
 //create global variables needed
 let username="";
 let userGameChoice="";
+let finalChoice ="";
 ///get enter game button 
 const entergameBtn= document.getElementById('enterGame');
 
@@ -68,25 +70,86 @@ falseBtn.addEventListener('click', ()=>{
 
 });
 
+//function that checks answer
+
+
+
 function checkAns(userOpt) {
     const currentDiv = document.getElementsByClassName("current")[0];
-    if (currentDiv){
-        currentDiv.classList.remove("current");    
-    }
-    //check
 
+
+    //check if user pick mix
+    if (userGameChoice == "Mix") {
+        //randomly pic a mathimatical sign
+        let randomSignPicker = Math.floor(Math.random() * 3);
+        finalChoice = randomQuest[randomSignPicker];
+
+    }
+    else {
+        finalChoice = userGameChoice;
+    }
+    if (currentDiv){
+
+        currentDiv.classList.remove("current");    
+
+        //collect each question varable
+        const lhsQuest = document.getElementsByClassName("lhs")[0].innerHTML;
+        const rhsQuest = document.getElementsByClassName("rhs")[0].innerHTML;
+        const questAns =document.getElementById("equal").innerHTML;
+
+        const realAns = eval(lhsQuest + finalChoice + rhsQuest);
+        const solution = (questAns == realAns).toString()
+        
+        //get score board
+        const correctAns = document.getElementById("correctAns");
+        const NumquestAns = document.getElementById("NumquestAns");
+
+        //check if solution and user answer is true
+        if (solution===userOpt){
+            console.log('you are correct');
+            //update score board
+            let currentScore= Number(correctAns.innerHTML)+1;
+            correctAns.innerHTML = currentScore;
+        }
+        //update number ofquestions answered
+        let currentQuest = Number(NumquestAns.innerHTML) + 1;
+            NumquestAns.innerHTML = currentQuest;
+       
+    }
     //add result
     let lhs = Math.floor(Math.random() * 20)+1;
     let rhs = Math.floor(Math.random() * 20)+1;
 
+    //generate specialy for division so that lhs will always be greater than rhs and division will be by 1, 2,5 or 10, also 
+    if (finalChoice =="/"){
+        let rand = Math.floor(Math.random()*8)+1;
+        lhs = (rand * 20);
+        //create an arrary for what you are dividing by
+        const rhsArray= [1,2,5,10];
+        let rhsSelector = Math.floor(Math.random() * 3);
+        rhs= rhsArray[rhsSelector];
+    } 
+    //ensure that lHS is greather than rhs when user selects -
+    if (finalChoice == "-") {
+        lhs = Math.floor(Math.random() * 40) + 30;
+    }
+    //ensure that simple numbers are genrated for multiplication preferably 1-12
+    if (finalChoice == "*") {
+        lhs = Math.floor(Math.random() * 11);
+        rhs = Math.floor(Math.random() * 11) + 1;
+    }
+
+
+    //generate answer
+
     let dummyAns = Math.floor(Math.random() * 5);
     let randMixAns = randomQuest[Math.floor(Math.random() * 1)];
-    let displayedAns = eval(lhs + userGameChoice + rhs + randMixAns + dummyAns);
+    let displayedAns = eval(lhs + finalChoice + rhs + randMixAns + dummyAns);
 
     //generate new question
     //remove question class list from other question
     
-    gameDisplayBody.innerHTML += "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + userGameChoice + "</div><div class='rhs'>" + rhs + "</div><div class='equal'>=" + displayedAns +"</div></div>";
+    gameDisplayBody.innerHTML = "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + finalChoice + "</div><div class='rhs'>" + rhs + "</div><div>=</div><div id='equal'>" + displayedAns +"</div></div>";
     //increase number of Questions ansed
     NumquestAns++;
 
