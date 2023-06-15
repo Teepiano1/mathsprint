@@ -2,12 +2,16 @@
 const homePage = document.getElementById("homePage");
 const mathsChoice = document.getElementById("mathsChoice");
 const gameDisplay = document.getElementById("gameDisplay");
-const result = document.getElementById("result");
+const resultDisplay = document.getElementById("result");
 const body=document.body;
+const gameMode = document.getElementById("gameMode");
+
 const gameDisplayBody = document.getElementById("game-display-body");
 const questionDiv = document.getElementById("question");
-let NumquestAns=1;
+let totalNumSet = 0;
+let NumquestAns=0;
 let correctAns=0;
+let currentScore="";
 
 const randomQuest = ['+', '-', '*', '/'];
 //create global variables needed
@@ -30,12 +34,28 @@ entergameBtn.addEventListener('click', ()=>{
         homeErroDisplay.innerHTML = "";
         //set home diplay to none
         homePage.style.display="none";
-        //display game page
-        mathsChoice.style.display="flex";
+        //display Levels        
+        gameMode.style.display = "flex";
+        //display game page        
+       // mathsChoice.style.display = "flex";
     }
     document.getElementById('usernameDisplay').innerHTML = username;
 
 })
+
+//get user selected modes
+const modeSelection = document.querySelectorAll(".mode");
+modeSelection.forEach(mode => {
+    mode.addEventListener('click',()=>{
+        //get the first two letter of the selected options and set game mode to that
+        totalNumSet=Number(mode.innerHTML.slice(0,2));
+        //display the next page where user choose the type of equation and set this page to none
+        gameMode.style.display = "none";
+            
+       mathsChoice.style.display = "flex";
+
+    })
+});
 
 //get user selected choice
 const userChoice = document.querySelectorAll(".userChoice");
@@ -52,7 +72,7 @@ userChoice.forEach(GameChoicediv=>{
 
         //display Game base on user selection
         document.getElementById('userSelection').innerHTML = userGameChoice;
-        checkAns("none");
+        checkAns("none", totalNumSet);
      })
 })
 
@@ -61,20 +81,20 @@ userChoice.forEach(GameChoicediv=>{
 const trueBtn = document.getElementById('true');
 const falseBtn = document.getElementById('false');
 
+
 //add eventlistener to both button with checkAns function
 trueBtn.addEventListener('click', ()=>{
-    checkAns("true");
+    checkAns("true", totalNumSet);
 });
 falseBtn.addEventListener('click', ()=>{
-    checkAns("false");
-
+    checkAns("false", totalNumSet);
 });
 
 //function that checks answer
 
 
 
-function checkAns(userOpt) {
+function checkAns(userOpt, totalNumSet) {
     const currentDiv = document.getElementsByClassName("current")[0];
 
 
@@ -106,9 +126,9 @@ function checkAns(userOpt) {
 
         //check if solution and user answer is true
         if (solution===userOpt){
-            console.log('you are correct');
+           
             //update score board
-            let currentScore= Number(correctAns.innerHTML)+1;
+            currentScore= Number(correctAns.innerHTML)+1;
             correctAns.innerHTML = currentScore;
         }
         //update number ofquestions answered
@@ -116,7 +136,12 @@ function checkAns(userOpt) {
             NumquestAns.innerHTML = currentQuest;
        
     }
-    //add result
+       
+
+    //Check if total Number answered <= number chooses
+    const answeredQuest = Number(document.getElementById("NumquestAns").innerHTML);
+    if (answeredQuest <totalNumSet){
+    //generate LHs and RHS
     let lhs = Math.floor(Math.random() * 20)+1;
     let rhs = Math.floor(Math.random() * 20)+1;
 
@@ -152,5 +177,57 @@ function checkAns(userOpt) {
     gameDisplayBody.innerHTML = "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + finalChoice + "</div><div class='rhs'>" + rhs + "</div><div>=</div><div id='equal'>" + displayedAns +"</div></div>";
     //increase number of Questions ansed
     NumquestAns++;
+    }
+    else{
+        //hide game display
+        gameDisplay.style.display="none";
+        resultDisplay.style.display="flex";
+        //properly display game result
+        document.getElementById('userInfo').innerHTML = username;
+        document.getElementById('totalQuestionsAnswerd').innerHTML = totalNumSet;
+        document.getElementById('correctlyAnswerd').innerHTML = currentScore;
+        let missedQuestions = eval(totalNumSet-currentScore);
+        document.getElementById('questionMissed').innerHTML = missedQuestions;
+        document.getElementById('timeSpent').innerHTML = "unknown Sec";
+        document.getElementById('rating').innerHTML = "unknown";
+        
+        resetScore();
+    }
+}
+
+function resetScore(){
+//reset all score
+    const correctAns = document.getElementById("correctAns");
+    const NumquestAns = document.getElementById("NumquestAns");
+    correctAns.innerHTML=0;
+    NumquestAns.innerHTML=0;
+    currentScore = 0;
+
+}
+function playAgain(){
+    //make result paage display none
+    resultDisplay.style.display = "none";
+    //make player Play again 
+    homePage.style.display = "none";
+    //display game choice page
+    mathsChoice.style.display = "flex";
+    //level selection set to none
+    gameMode.style.display = "none";
+
+    
+    
+}
+
+function quit (){
+//take player home page
+    //make result paage display none
+    resultDisplay.style.display = "none";
+    //game choice page set to none
+    mathsChoice.style.display = "none";
+    //display home page
+    //level selection set to none
+    gameMode.style.display = "none";
+    homePage.style.display = "flex";
+
 
 }

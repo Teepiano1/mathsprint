@@ -15,6 +15,11 @@
             <div id="homeError"></div>
             <button id="enterGame" class="btn-primary">Play Game</button>
         </section>
+        <section id="gameMode">
+            <div class="mode">10 Questions</div>
+            <div class="mode">15 Questions</div>
+            <div class="mode">20 Questions</div>
+        </section>
         <section id="mathsChoice">
             <h1><span id="usernameDisplay"></span> <br> Choose Sprint Type</h1>
             <div class="choice-group">
@@ -43,13 +48,17 @@
             </div>        
         </section>
         <section id="result">
-            <h1>this section is where user see result of game played by default its hidden from css</h1>
-            <div class="userInfo">user info</div>
-            <div class="selectedGameDisplay">game display
-                <div class="question">questions here</div>
-                <div class="answer">Options here</div>
+            <!-- this section is where user see result of game played by default its hidden from css -->
+            <div id="userInfo">user info</div>
+            <div>Total Questions Answered: <span id="totalQuestionsAnswerd">0</span></div>
+            <div>Correctly Answered: <span id="correctlyAnswerd">0</span> Questions</div>
+            <div>Wrongly Answered: <span id="questionMissed">0</span> Qestions</div>
+            <div>Time Spent: <span id="timeSpent">ms</span></div>
+            <div>Sprint Rate: <span id="rating"></span></div>
+            <div class="action">
+                <div class="btn play-again" onclick="playAgain()">Play Again</div>
+                <div class="btn quit" onclick="quit()">Quit</div>
             </div>
-            <div>action button</div>
         </section>
     </main>
     

@@ -28,12 +28,8 @@ font-family: sprint;
 
 /* Desktop views start here*/
 
-#mathsChoice, #gameDisplay, #result, #result{
+#mathsChoice, #gameDisplay, #result, #result, #gameMode{
 display: none;
-}
-
-#result{
-/* display: flex; */
 }
 
 #homeError{
@@ -71,18 +67,32 @@ margin: 20px;
 height: 30px;
 padding: 2px;
 }
-button, .btn-primary{
+.btn, button, .btn-primary{
 border: none;
 border-radius: 2px;
 padding: 10px 30px;
 background-color: rgb(5, 5, 125);
-color: aliceblue;
+color: rgb(245, 245, 245);
 cursor: pointer;
 transition: 2ms;
+margin: 20px;
+width: 200px;
+text-align: center;
 }
-button:hover{
+.btn:hover, button:hover{
 opacity: 0.7;
 }
+.play-again{
+background-color: rgb(0, 59, 0);
+}
+.quit{
+background-color: rgb(179, 2, 2);
+}
+.action{
+display: flex;
+margin-top: 60px;
+}
+
 .choice-group{
 display: flex;
 flex-direction: row;
