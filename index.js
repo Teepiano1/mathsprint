@@ -12,6 +12,9 @@ let totalNumSet = 0;
 let NumquestAns=0;
 let correctAns=0;
 let currentScore="";
+let totalTimeSpent = 0;
+let defaultTime = 0;
+
 
 const randomQuest = ['+', '-', '*', '/'];
 //create global variables needed
@@ -56,6 +59,22 @@ modeSelection.forEach(mode => {
 
     })
 });
+//create a timer function 
+
+const timer =()=> {
+    ///time function
+    timeInterval=setInterval(showTime, 1000);   
+    showTime();
+}
+function showTime() {
+    let hour = Math.floor(defaultTime / 3600);
+    let minute = Math.floor((defaultTime - hour * 3600) / 60);
+    let seconds = defaultTime - (hour * 3600 + minute * 60);
+
+    document.getElementById("clock").innerHTML = hour + ":" + minute + ":" + seconds;
+    ++defaultTime;
+    totalTimeSpent = defaultTime;
+}
 
 //get user selected choice
 const userChoice = document.querySelectorAll(".userChoice");
@@ -73,6 +92,7 @@ userChoice.forEach(GameChoicediv=>{
         //display Game base on user selection
         document.getElementById('userSelection').innerHTML = userGameChoice;
         checkAns("none", totalNumSet);
+        timer()
      })
 })
 
@@ -182,16 +202,22 @@ function checkAns(userOpt, totalNumSet) {
         //hide game display
         gameDisplay.style.display="none";
         resultDisplay.style.display="flex";
+        let userRate = eval((currentScore / totalNumSet) / parseInt(totalTimeSpent));
         //properly display game result
         document.getElementById('userInfo').innerHTML = username;
         document.getElementById('totalQuestionsAnswerd').innerHTML = totalNumSet;
         document.getElementById('correctlyAnswerd').innerHTML = currentScore;
         let missedQuestions = eval(totalNumSet-currentScore);
         document.getElementById('questionMissed').innerHTML = missedQuestions;
-        document.getElementById('timeSpent').innerHTML = "unknown Sec";
-        document.getElementById('rating').innerHTML = "unknown";
+        document.getElementById('timeSpent').innerHTML = totalTimeSpent+'Seconds';
+
+        document.getElementById('rating').innerHTML = userRate+" Correct Questions Per Seconds";
         
         resetScore();
+        //rest time
+        totalTimeSpent=0;
+        defaultTime=0;
+        clearInterval(showTime); 
     }
 }
 
@@ -231,3 +257,4 @@ function quit (){
 
 
 }
+
