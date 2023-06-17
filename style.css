@@ -39,11 +39,34 @@ font-style: italic;
 #mathsChoice, #gameDisplay{
 flex-direction: column;
 }
+#gameMode{
+display: flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items: center;
 
-main{
+}
+.mode{
+border: solid red;
+border-radius: 5px;
+background-color: black;
+color: white;
+padding: 20px;
+cursor: pointer;
+transition: 3ms;
+
+
+}
+
+.mode:hover{
+    border: solid rgb(146, 13, 13);
+    opacity: 0.8;
+    }
+    main{
 width: 100svw;
 height: 100svh;
 background-color: rgb(5, 5, 75);
+background-image: url(images/mainbg.jpg);
 display: flex;
 flex-direction: column;
 justify-content: center;
