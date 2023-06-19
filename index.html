@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,10 +8,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <main>
-        <section id="homePage"> 
-            <h1>This section is for the home screen by default display is visible</h1>
+        <h1 id="head"> MATHS SPRINT GAME </h1>
+        <section id="homePage">
             <input type="text" id="username" placeholder="Please Enter your Name">
             <div id="homeError"></div>
             <button id="enterGame" class="btn-primary">Play Game</button>
@@ -34,20 +36,16 @@
         </section>
         <section id="gameDisplay">
             <div class="result">
-                <h1 id="clock">0:0:0</h1> 
-                <h1>score: <span id="correctAns">0</span> / <span id="NumquestAns">0</span></h1>
+                <h1 id="clock">0:0:0</h1>
                 <h2>You Choose: <span id="userSelection"></span></h2>
             </div>
 
             <div id="game-display-body">
-                
+
                 <!-- Questions are injected here -->
 
             </div>
-            <div class="game-options">
-                <div id="true">True</div>
-                <div id="false">False</div>
-            </div>        
+            <h1>score: <span id="correctAns">0</span> / <span id="NumquestAns">0</span></h1>
         </section>
         <section id="result">
             <!-- this section is where user see result of game played by default its hidden from css -->
@@ -59,11 +57,14 @@
             <div>Sprint Rate: <span id="rating"></span></div>
             <div class="action">
                 <div class="btn play-again" onclick="playAgain()">Play Again</div>
-                <div class="btn quit" onclick="quit()">Quit</div>
+                <div class="btn-quit" onclick="quit()">Quit</div>
             </div>
         </section>
+        <div id="true">True</div>
+        <div id="false">False</div>
     </main>
-    
+
     <script src="index.js"></script>
 </body>
+
 </html>

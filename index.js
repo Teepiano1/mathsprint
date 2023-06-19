@@ -5,6 +5,7 @@ const gameDisplay = document.getElementById("gameDisplay");
 const resultDisplay = document.getElementById("result");
 const body = document.body;
 const gameMode = document.getElementById("gameMode");
+gameMode.style.display = "none"
 
 const gameDisplayBody = document.getElementById("game-display-body");
 const questionDiv = document.getElementById("question");
@@ -108,6 +109,9 @@ function timer() {
     totalTimeSpent = second;
 }
 
+const trueBtn = document.getElementById('true');
+const falseBtn = document.getElementById('false');
+
 
 //get user selected choice
 const userChoice = document.querySelectorAll(".userChoice");
@@ -126,24 +130,21 @@ userChoice.forEach(GameChoicediv => {
         document.getElementById('userSelection').innerHTML = userGameChoice;
         checkAns("none", totalNumSet);
         startTime()
-    })
-})
+        
+        
+        //add eventlistener to both button with checkAns function
+        trueBtn.addEventListener('click', () => {
+            checkAns("true", totalNumSet);
+        });
+        falseBtn.addEventListener('click', () => {
+            checkAns("false", totalNumSet);
+        });
+        //function that checks answer
+        trueBtn.style.display = "flex"
+        falseBtn.style.display = "flex"
+    })    
+})    
 
-
-
-const trueBtn = document.getElementById('true');
-const falseBtn = document.getElementById('false');
-
-
-//add eventlistener to both button with checkAns function
-trueBtn.addEventListener('click', () => {
-    checkAns("true", totalNumSet);
-});
-falseBtn.addEventListener('click', () => {
-    checkAns("false", totalNumSet);
-});
-
-//function that checks answer
 
 
 
@@ -235,6 +236,9 @@ function checkAns(userOpt, totalNumSet) {
         //hide game display
         gameDisplay.style.display = "none";
         resultDisplay.style.display = "flex";
+        //hide btn
+        falseBtn.style.display = "none"
+        trueBtn.style.display = "none"
         let userRate = eval((currentScore / totalNumSet) / parseInt(totalTimeSpent));
         //properly display game result
         document.getElementById('userInfo').innerHTML = username;
@@ -245,7 +249,6 @@ function checkAns(userOpt, totalNumSet) {
         document.getElementById('timeSpent').innerHTML = totalTimeSpent + 'Seconds';
 
         document.getElementById('rating').innerHTML = userRate + " Correct Questions Per Seconds";
-
         resetScore();
         
         resetTime()
