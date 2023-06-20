@@ -25,7 +25,18 @@ let millisecond = 0;
 
 let gametimer;
 
+
 //timer function ends
+
+
+//additional 
+//sounds 
+
+
+
+introSound = "/sound/intro.mp3";
+gameOnSound = "/sound/gameon.mp3";
+endGameSound = "/sound/gameover.mp3";
 
 const randomQuest = ['+', '-', '*', '/'];
 //create global variables needed
@@ -103,7 +114,7 @@ function timer() {
         minute = 0;
         hour++;
     }
-    document.getElementById("clock").innerHTML = hour + ":" + minute + ":" + second + ":" + millisecond;
+    document.getElementById("clock").innerHTML = "<span class='time-counter hour'>" + hour + "</span>:<span class='time-counter minutes'>" + minute + "</span>:<span class='time-counter sec'>" + second + "</span>:<span class='time-counter minisec'>" + millisecond+"</span>";
     //get total time spent
     ++defaultTime;
     totalTimeSpent = second;
@@ -170,13 +181,13 @@ function checkAns(userOpt, totalNumSet) {
         const lhsQuest = document.getElementsByClassName("lhs")[0].innerHTML;
         const rhsQuest = document.getElementsByClassName("rhs")[0].innerHTML;
         const questAns = document.getElementById("equal").innerHTML;
+        const sign = document.getElementsByClassName("sign")[0].innerHTML;
 
-        const realAns = eval(lhsQuest + finalChoice + rhsQuest);
+        const realAns = eval(lhsQuest + sign + rhsQuest);
         const solution = (questAns == realAns).toString()
-
         //get score board
         const correctAns = document.getElementById("correctAns");
-        const NumquestAns = document.getElementById("NumquestAns");
+        let NumquestAns = document.getElementById("NumquestAns");
 
         //check if solution and user answer is true
         if (solution === userOpt) {
@@ -188,6 +199,15 @@ function checkAns(userOpt, totalNumSet) {
         //update number ofquestions answered
         let currentQuest = Number(NumquestAns.innerHTML) + 1;
         NumquestAns.innerHTML = currentQuest;
+
+        //restyle time to hasten user
+        if (Number(NumquestAns.innerHTML / totalNumSet) > 0.5) {
+        console.log(1);
+
+            const timeCounter = document.getElementById("clock");
+            timeCounter.style.backgroundColor="red";
+        }
+
 
     }
 
@@ -219,7 +239,7 @@ function checkAns(userOpt, totalNumSet) {
         }
 
 
-        //generate answer
+        //generate answer for the displayed questions
 
         let dummyAns = Math.floor(Math.random() * 5);
         let randMixAns = randomQuest[Math.floor(Math.random() * 1)];
@@ -229,8 +249,8 @@ function checkAns(userOpt, totalNumSet) {
         //remove question class list from other question
 
         gameDisplayBody.innerHTML = "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + finalChoice + "</div><div class='rhs'>" + rhs + "</div><div>=</div><div id='equal'>" + displayedAns + "</div></div>";
-        //increase number of Questions ansed
-        NumquestAns++;
+        
+
     }
     else {
         //hide game display
@@ -262,10 +282,8 @@ function resetScore() {
     correctAns.innerHTML = 0;
     NumquestAns.innerHTML = 0;
     currentScore = 0;
-
     //resttime
     resetTime()
-
 }
 function playAgain() {
     //make result paage display none
@@ -280,8 +298,6 @@ function playAgain() {
     //rest time
     //resttime
     resetTime()
-
-
 }
 
 function quit() {
@@ -294,8 +310,4 @@ function quit() {
     //level selection set to none
     gameMode.style.display = "none";
     homePage.style.display = "flex";
-
-
 }
-
-

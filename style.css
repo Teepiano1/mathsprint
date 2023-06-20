@@ -69,7 +69,8 @@
 .btn-quit:hover {
     color: white;
     background-color: gray;
-    transition: 0.5s ease-in-out;
+    transition: 0.2s ease-in-out;
+    box-shadow: -20px 5px 45px 11px rgba(214, 214, 214, 1) inset;
 }
 
 main {
@@ -128,27 +129,46 @@ input {
 .choice-group {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 60%;
     height: fit-content;
     flex-wrap: wrap;
     padding: 50px;
 }
 
 .userChoice {
-    width: 3rem;
+    width: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #856aaf;
-    margin: 20px;
+    margin: 10px;
     font-size: 6rem;
     border-radius: 1rem;
     cursor: pointer;
+    transition: 0.1ms;
+}
+.mix {
+    width: 100%;
+    height: 150px;
 }
 
-.mix {
-    width: 56%;
-    height: 150px;
+#clock{
+font-size: 30px;
+font-weight: 800;
+display: flex;
+color: #856aaf;
+padding: 20px;
+border-radius: 5px;
+}
+.time-counter{
+border-radius: 3px;
+display: flex;
+width: 100px;
+justify-content: center;
+    color: white;
+        background-color: gray;
+        transition: 0.2s ease-in-out;
+        box-shadow: -20px 5px 45px 11px rgba(214, 214, 214, 1) inset;
 }
 
 .gameDisplay {
@@ -172,24 +192,33 @@ input {
 #usernameDisplay {
     text-transform: capitalize;
 }
+.center{
+text-align: center;
+}
 
 #mathsChoice h1 {
     text-align: center;
 }
 
+.answer-group{
+display: flex;
+width: 100%;
+justify-content: center;
+}
 #false,
 #true {
     width: 10%;
     height: 2rem;
     padding: 10px;
     color: white;
-    border-radius: 1rem;
+    border-radius: 3px;
     font-size: larger;
     display: none;
     justify-content: center;
     align-items: center;
     margin: 4px;
     cursor: pointer;
+    padding: 30px;
 }
 #true{
     display: none;
@@ -206,6 +235,15 @@ input {
 
 .current {
     display: flex !important;
+}
+.top-choice-group{
+width: 100%;
+display: flex;
+flex-direction: row;
+}
+.others-mix-group{
+width: 98%;
+
 }
 
 /* Desktop views ends here*/

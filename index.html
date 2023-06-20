@@ -27,17 +27,21 @@
         <section id="mathsChoice">
             <h1><span id="usernameDisplay"></span> <br> Choose Sprint Type</h1>
             <div class="choice-group">
+                <div class="top-choice-group">
                 <div class="userChoice">+</div>
                 <div class="userChoice">-</div>
                 <div class="userChoice">/</div>
                 <div class="userChoice">*</div>
+                </div>
+                <div class="others-mix-group">
                 <div class="userChoice mix">Mix</div>
+
             </div>
         </section>
         <section id="gameDisplay">
             <div class="result">
-                <h1 id="clock">0:0:0</h1>
-                <h2>You Choose: <span id="userSelection"></span></h2>
+                <div id="clock">0:0:0</div>
+                <h2 class="center">You Choose: <span id="userSelection"></span></h2>
             </div>
 
             <div id="game-display-body">
@@ -46,6 +50,10 @@
 
             </div>
             <h1>score: <span id="correctAns">0</span> / <span id="NumquestAns">0</span></h1>
+            <div class="answer-group">
+            <div id="true">True</div>
+            <div id="false">False</div>
+            </div>
         </section>
         <section id="result">
             <!-- this section is where user see result of game played by default its hidden from css -->
@@ -60,8 +68,7 @@
                 <div class="btn-quit" onclick="quit()">Quit</div>
             </div>
         </section>
-        <div id="true">True</div>
-        <div id="false">False</div>
+        
     </main>
 
     <script src="index.js"></script>
