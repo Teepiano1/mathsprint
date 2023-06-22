@@ -9,12 +9,17 @@ gameMode.style.display = "none"
 
 const gameDisplayBody = document.getElementById("game-display-body");
 const questionDiv = document.getElementById("question");
-let totalNumSet = 0;
-let NumquestAns = 0;
-let correctAns = 0;
-let currentScore = "";
-let totalTimeSpent = 0;
-let defaultTime = 0;
+let totalNumSet = null;
+let NumquestAns = null;
+let correctAns = null;
+let currentScore = null;
+let totalTimeSpent = null;
+let defaultTime = null;
+let lhs=null;
+let rhs=null;
+let displayedAns=null;
+let currentQuest=null;
+let answeredQuest=null;
 
 //timer function
 
@@ -29,20 +34,11 @@ let gametimer;
 //timer function ends
 
 
-//additional 
-//sounds 
-
-
-
-introSound = "/sound/intro.mp3";
-gameOnSound = "/sound/gameon.mp3";
-endGameSound = "/sound/gameover.mp3";
-
 const randomQuest = ['+', '-', '*', '/'];
 //create global variables needed
-let username = "";
-let userGameChoice = "";
-let finalChoice = "";
+let username = null;
+let userGameChoice = null;
+let finalChoice = null;
 ///get enter game button 
 const entergameBtn = document.getElementById('enterGame');
 
@@ -86,7 +82,6 @@ modeSelection.forEach(mode => {
 
 
 function startTime() {
-
     gametimer = setInterval(() => { timer(); }, 10);
 }
 
@@ -99,7 +94,6 @@ function resetTime() {
     millisecond = 0;
     defaultTime = 0;
     document.getElementById("clock").innerHTML = "00:00:00:0000";
-
 }
 function timer() {
     if ((millisecond += 10) == 1000) {
@@ -122,8 +116,6 @@ function timer() {
 
 const trueBtn = document.getElementById('true');
 const falseBtn = document.getElementById('false');
-
-
 //get user selected choice
 const userChoice = document.querySelectorAll(".userChoice");
 //add eventlisterner to each choice
@@ -136,11 +128,10 @@ userChoice.forEach(GameChoicediv => {
         //update user choice
 
         userGameChoice = GameChoicediv.innerHTML;
-
         //display Game base on user selection
         document.getElementById('userSelection').innerHTML = userGameChoice;
-        checkAns("none", totalNumSet);
-        startTime()
+            GenerateQuestion(totalNumSet);
+            startTime()
         
         
         //add eventlistener to both button with checkAns function
@@ -156,14 +147,9 @@ userChoice.forEach(GameChoicediv => {
     })    
 })    
 
+//questions Generated 
+function GenerateQuestion(){
 
-
-
-function checkAns(userOpt, totalNumSet) {
-    const currentDiv = document.getElementsByClassName("current")[0];
-
-
-    //check if user pick mix
     if (userGameChoice == "Mix") {
         //randomly pic a mathimatical sign
         let randomSignPicker = Math.floor(Math.random() * 3);
@@ -173,9 +159,42 @@ function checkAns(userOpt, totalNumSet) {
     else {
         finalChoice = userGameChoice;
     }
-    if (currentDiv) {
+    //generate LHs and RHS
+    lhs = Math.floor(Math.random() * 20) + 1;
+    rhs = Math.floor(Math.random() * 20) + 1;
 
-        currentDiv.classList.remove("current");
+    //generate specialy for division so that lhs will always be greater than rhs and division will be by 1, 2,5 or 10, also 
+    if (finalChoice == "/") {
+        let rand = Math.floor(Math.random() * 8) + 1;
+        lhs = (rand * 20);
+        //create an arrary for what you are dividing by
+        const rhsArray = [1, 2, 5, 10];
+        let rhsSelector = Math.floor(Math.random() * 3);
+        rhs = rhsArray[rhsSelector];
+    }
+    //ensure that lHS is greather than rhs when user selects -
+    if (finalChoice == "-") {
+        lhs = Math.floor(Math.random() * 40) + 30;
+    }
+    //ensure that simple numbers are genrated for multiplication preferably 1-12
+    if (finalChoice == "*") {
+        lhs = Math.floor(Math.random() * 11);
+        rhs = Math.floor(Math.random() * 11) + 1;
+    }
+
+    //generate answer for the displayed questions
+    let dummyAns = Math.floor(Math.random() * 5);
+    let randMixAns = randomQuest[Math.floor(Math.random() * 1)];
+    displayedAns = eval(lhs + finalChoice + rhs + randMixAns + dummyAns);
+
+    //display the generated question
+    gameDisplayBody.innerHTML = "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + finalChoice + "</div><div class='rhs'>" + rhs + "</div><div>=</div><div id='equal'>" + displayedAns + "</div></div>";
+
+
+}
+
+
+function checkAns(userOpt, totalNumSet) {
 
         //collect each question varable
         const lhsQuest = document.getElementsByClassName("lhs")[0].innerHTML;
@@ -186,71 +205,30 @@ function checkAns(userOpt, totalNumSet) {
         const realAns = eval(lhsQuest + sign + rhsQuest);
         const solution = (questAns == realAns).toString()
         //get score board
-        const correctAns = document.getElementById("correctAns");
-        let NumquestAns = document.getElementById("NumquestAns");
+        correctAns = document.getElementById("correctAns").innerHTML;
+        NumquestAns = document.getElementById("NumquestAns");
 
         //check if solution and user answer is true
         if (solution === userOpt) {
-
             //update score board
-            currentScore = Number(correctAns.innerHTML) + 1;
-            correctAns.innerHTML = currentScore;
+            currentScore = Number(correctAns) + 1;
+            document.getElementById("correctAns").innerHTML = currentScore;
         }
         //update number ofquestions answered
-        let currentQuest = Number(NumquestAns.innerHTML) + 1;
+        currentQuest = Number(NumquestAns.innerHTML) +1;
         NumquestAns.innerHTML = currentQuest;
 
         //restyle time to hasten user
         if (Number(NumquestAns.innerHTML / totalNumSet) > 0.5) {
-        console.log(1);
-
             const timeCounter = document.getElementById("clock");
             timeCounter.style.backgroundColor="red";
         }
-
-
-    }
-
-
+    
     //Check if total Number answered <= number chooses
-    const answeredQuest = Number(document.getElementById("NumquestAns").innerHTML);
+     answeredQuest = Number(document.getElementById("NumquestAns").innerHTML);
     if (answeredQuest < totalNumSet) {
-        //generate LHs and RHS
-        let lhs = Math.floor(Math.random() * 20) + 1;
-        let rhs = Math.floor(Math.random() * 20) + 1;
-
-        //generate specialy for division so that lhs will always be greater than rhs and division will be by 1, 2,5 or 10, also 
-        if (finalChoice == "/") {
-            let rand = Math.floor(Math.random() * 8) + 1;
-            lhs = (rand * 20);
-            //create an arrary for what you are dividing by
-            const rhsArray = [1, 2, 5, 10];
-            let rhsSelector = Math.floor(Math.random() * 3);
-            rhs = rhsArray[rhsSelector];
-        }
-        //ensure that lHS is greather than rhs when user selects -
-        if (finalChoice == "-") {
-            lhs = Math.floor(Math.random() * 40) + 30;
-        }
-        //ensure that simple numbers are genrated for multiplication preferably 1-12
-        if (finalChoice == "*") {
-            lhs = Math.floor(Math.random() * 11);
-            rhs = Math.floor(Math.random() * 11) + 1;
-        }
-
-
-        //generate answer for the displayed questions
-
-        let dummyAns = Math.floor(Math.random() * 5);
-        let randMixAns = randomQuest[Math.floor(Math.random() * 1)];
-        let displayedAns = eval(lhs + finalChoice + rhs + randMixAns + dummyAns);
-
-        //generate new question
-        //remove question class list from other question
-
-        gameDisplayBody.innerHTML = "<div id='question' class='current'><div class='lhs'>" + lhs + "</div><div class='sign'>" + finalChoice + "</div><div class='rhs'>" + rhs + "</div><div>=</div><div id='equal'>" + displayedAns + "</div></div>";
-        
-
+    //generate question
+        GenerateQuestion(totalNumSet);
     }
     else {
         //hide game display
@@ -268,22 +246,18 @@ function checkAns(userOpt, totalNumSet) {
         document.getElementById('questionMissed').innerHTML = missedQuestions;
         document.getElementById('timeSpent').innerHTML = totalTimeSpent + 'Seconds';
 
-        document.getElementById('rating').innerHTML = userRate + " Correct Questions Per Seconds";
         resetScore();
-        
         resetTime()
     }
 }
 
 function resetScore() {
     //reset all score
-    const correctAns = document.getElementById("correctAns");
-    const NumquestAns = document.getElementById("NumquestAns");
+    correctAns = document.getElementById("correctAns");
+    NumquestAns = document.getElementById("NumquestAns");
     correctAns.innerHTML = 0;
     NumquestAns.innerHTML = 0;
     currentScore = 0;
-    //resttime
-    resetTime()
 }
 function playAgain() {
     //make result paage display none
@@ -296,7 +270,6 @@ function playAgain() {
     gameMode.style.display = "none";
     
     //rest time
-    //resttime
     resetTime()
 }
 
