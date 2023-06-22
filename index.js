@@ -130,16 +130,16 @@ userChoice.forEach(GameChoicediv => {
         userGameChoice = GameChoicediv.innerHTML;
         //display Game base on user selection
         document.getElementById('userSelection').innerHTML = userGameChoice;
-            GenerateQuestion(totalNumSet);
+            GenerateQuestion();
             startTime()
         
         
         //add eventlistener to both button with checkAns function
         trueBtn.addEventListener('click', () => {
-            checkAns("true", totalNumSet);
+            checkAns("true");
         });
         falseBtn.addEventListener('click', () => {
-            checkAns("false", totalNumSet);
+            checkAns("false");
         });
         //function that checks answer
         trueBtn.style.display = "flex"
@@ -194,7 +194,7 @@ function GenerateQuestion(){
 }
 
 
-function checkAns(userOpt, totalNumSet) {
+function checkAns(userOpt) {
 
         //collect each question varable
         const lhsQuest = document.getElementsByClassName("lhs")[0].innerHTML;
