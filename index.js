@@ -56,7 +56,7 @@ entergameBtn.addEventListener('click', () => {
         //set home diplay to none
         homePage.style.display = "none";
         //display Levels        
-        gameMode.style.display = "flex";
+        gameMode.style = "animation:modalKeyFrame 0.8s 1; display:flex"
         //display game page        
         // mathsChoice.style.display = "flex";
     }
@@ -73,7 +73,7 @@ modeSelection.forEach(mode => {
         //display the next page where user choose the type of equation and set this page to none
         gameMode.style.display = "none";
 
-        mathsChoice.style.display = "flex";
+        mathsChoice.style = "animation:gameKeyFrame 0.8s 1; display: flex;"
 
     })
 });
@@ -122,7 +122,7 @@ const userChoice = document.querySelectorAll(".userChoice");
 userChoice.forEach(GameChoicediv => {
     GameChoicediv.addEventListener('click', () => {
         //close current scrren and open the next screen
-        gameDisplay.style.display = "flex";
+        gameDisplay.style = "animation:modalKeyFrame 0.8s 1; display:flex"
         mathsChoice.style.display = "none";
 
         //update user choice
@@ -233,7 +233,7 @@ function checkAns(userOpt) {
     else {
         //hide game display
         gameDisplay.style.display = "none";
-        resultDisplay.style.display = "flex";
+        resultDisplay.style = "animation:gameKeyFrame 0.8s 1; display:flex"
         //hide btn
         falseBtn.style.display = "none"
         trueBtn.style.display = "none"
@@ -265,7 +265,7 @@ function playAgain() {
     //make player Play again 
     homePage.style.display = "none";
     //display game choice page
-    mathsChoice.style.display = "flex";
+    mathsChoice.style = "animation:gameKeyFrame 0.8s 1; display:flex"
     //level selection set to none
     gameMode.style.display = "none";
     
@@ -282,5 +282,5 @@ function quit() {
     //display home page
     //level selection set to none
     gameMode.style.display = "none";
-    homePage.style.display = "flex";
+    homePage.style = "animation:gameKeyFrame 0.8s 1; display:flex"
 }
