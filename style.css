@@ -17,6 +17,12 @@
 
 /* Desktop views start here*/
 
+#homePage{
+    width: 30%;
+    height: 40%;
+    border-radius: 1rem;
+}
+
 #mathsChoice,
 #gameDisplay,
 #result,
