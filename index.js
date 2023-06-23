@@ -295,19 +295,12 @@ function resetScore() {
 
 }
 function playAgain() {
-    //make result paage display none
-    resultDisplay.style.display = "none";
-    //make player Play again 
-    homePage.style.display = "none";
-    //display game choice page
-    mathsChoice.style = "animation:gameKeyFrame 0.8s 1; display:flex"
-    //level selection set to none
-    gameMode.style.display = "none";
     resetScore()
     resetTime()
+    location.reload();
     
 }
 
 function quit() {
-    location.reload();
+    window.close();
 }
