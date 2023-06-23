@@ -2,7 +2,7 @@
 const homePage = document.getElementById("homePage");
 const mathsChoice = document.getElementById("mathsChoice");
 const gameDisplay = document.getElementById("gameDisplay");
-const resultDisplay = document.getElementById("resultboard");
+const resultDisplay = document.getElementById("result");
 const body = document.body;
 const gameMode = document.getElementById("gameMode");
 gameMode.style.display = "none"
@@ -130,7 +130,6 @@ userChoice.forEach(GameChoicediv => {
         userGameChoice = GameChoicediv.innerHTML;
         //display Game base on user selection
         document.getElementById('userSelection').innerHTML = userGameChoice;
-            resetScore()
             GenerateQuestion();
             startTime()
         
@@ -138,13 +137,9 @@ userChoice.forEach(GameChoicediv => {
         //add eventlistener to both button with checkAns function
         trueBtn.addEventListener('click', () => {
             checkAns("true");
-            next();
-           
         });
         falseBtn.addEventListener('click', () => {
-           checkAns("false");
-            next();
-           
+            checkAns("false");
         });
         //function that checks answer
         trueBtn.style.display = "flex"
@@ -152,59 +147,6 @@ userChoice.forEach(GameChoicediv => {
     })    
 })    
 
-//display next question if user has not asnswered up to the selected questions
-function next(){
-    document.getElementById("correctAns").innerHTML = currentScore;
-    answeredQuest = Number(document.getElementById("NumquestAns").innerHTML);
-    answeredQuest++;
-    document.getElementById("NumquestAns").innerHTML = answeredQuest;
-    if (answeredQuest < totalNumSet) {
-        //generate question
-        GenerateQuestion(totalNumSet);
-        
-    }
-    else{
-    console.log('end of the road');
-    //display answers
-        gameDisplay.style.display = "none";
-        //properly display game result
-        document.getElementById('userInfo').innerHTML = username;
-        //hide game display
-
-        let userRate = eval((currentScore / totalNumSet) / parseInt(totalTimeSpent));
-        //properly display game result
-        document.getElementById('userInfo').innerHTML = username;
-        document.getElementById('totalQuestionsAnswerd').innerHTML = totalNumSet;
-        document.getElementById('correctlyAnswerd').innerHTML = currentScore;
-        let missedQuestions = eval(totalNumSet - currentScore);
-        document.getElementById('questionMissed').innerHTML = missedQuestions;
-        document.getElementById('timeSpent').innerHTML = totalTimeSpent + 'Seconds';
-        resultDisplay.style = "animation:gameKeyFrame 0.8s 1; display:flex"
-
-    //reset things to 0
-        resetScore()
-        resetTime()
-    }
-
-}
-function nextReal (){
-    //Check if total Number answered <= number chooses
-    answeredQuest = Number(document.getElementById("NumquestAns").innerHTML);
-    if (answeredQuest < totalNumSet) {
-        //generate question
-        GenerateQuestion(totalNumSet);
-    }
-    else {
-        //hide game display
-        gameDisplay.style.display = "none";
-        resultDisplay.style = "animation:gameKeyFrame 0.8s 1; display:flex"
-        //hide btn
-
-        resetScore();
-        resetTime()
-    }
-
-}
 //questions Generated 
 function GenerateQuestion(){
 
@@ -251,7 +193,7 @@ function GenerateQuestion(){
 
 }
 
-//this function marks the answers correctly or wrongly
+
 function checkAns(userOpt) {
 
         //collect each question varable
@@ -273,26 +215,49 @@ function checkAns(userOpt) {
             document.getElementById("correctAns").innerHTML = currentScore;
         }
         //update number ofquestions answered
+        currentQuest = Number(NumquestAns.innerHTML) +1;
+        NumquestAns.innerHTML = currentQuest;
 
         //restyle time to hasten user
         if (Number(NumquestAns.innerHTML / totalNumSet) > 0.5) {
             const timeCounter = document.getElementById("clock");
             timeCounter.style.backgroundColor="red";
         }
-        else{
-            const timeCounter = document.getElementById("clock");
-            timeCounter.style.backgroundColor = "white";
-        }
     
+    //Check if total Number answered <= number chooses
+     answeredQuest = Number(document.getElementById("NumquestAns").innerHTML);
+    if (answeredQuest < totalNumSet) {
+    //generate question
+        GenerateQuestion(totalNumSet);
+    }
+    else {
+        //hide game display
+        gameDisplay.style.display = "none";
+        resultDisplay.style = "animation:gameKeyFrame 0.8s 1; display:flex"
+        //hide btn
+        falseBtn.style.display = "none"
+        trueBtn.style.display = "none"
+        let userRate = eval((currentScore / totalNumSet) / parseInt(totalTimeSpent));
+        //properly display game result
+        document.getElementById('userInfo').innerHTML = username;
+        document.getElementById('totalQuestionsAnswerd').innerHTML = totalNumSet;
+        document.getElementById('correctlyAnswerd').innerHTML = currentScore;
+        let missedQuestions = eval(totalNumSet - currentScore);
+        document.getElementById('questionMissed').innerHTML = missedQuestions;
+        document.getElementById('timeSpent').innerHTML = totalTimeSpent + 'Seconds';
 
+        resetScore();
+        resetTime()
+    }
 }
 
 function resetScore() {
     //reset all score
+    correctAns = document.getElementById("correctAns");
+    NumquestAns = document.getElementById("NumquestAns");
+    correctAns.innerHTML = 0;
+    NumquestAns.innerHTML = 0;
     currentScore = 0;
-    document.getElementById("correctAns").innerHTML = 0;
-    document.getElementById("NumquestAns").innerHTML = 0;
-
 }
 function playAgain() {
     //make result paage display none
@@ -303,11 +268,19 @@ function playAgain() {
     mathsChoice.style = "animation:gameKeyFrame 0.8s 1; display:flex"
     //level selection set to none
     gameMode.style.display = "none";
-    resetScore()
-    resetTime()
     
+    //rest time
+    resetTime()
 }
 
 function quit() {
-    location.reload();
+    //take player home page
+    //make result paage display none
+    resultDisplay.style.display = "none";
+    //game choice page set to none
+    mathsChoice.style.display = "none";
+    //display home page
+    //level selection set to none
+    gameMode.style.display = "none";
+    homePage.style = "animation:gameKeyFrame 0.8s 1; display:flex"
 }
